@@ -9,8 +9,11 @@ contract EndorCrowdsale is RefundableCrowdsale {
     Crowdsale(_startTime, _endTime, _rate, _wallet) public payable {}
 
     function createTokenContract() internal returns (MintableToken) {
-        EndorToken token = new EndorToken();
-        token.transferOwnership(msg.sender);
-        return token;
+        return new EndorToken();
+    }
+
+    function finalization() internal {
+        token.finishMinting();
+        super.finalization();
     }
 }
