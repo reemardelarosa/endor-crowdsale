@@ -4,6 +4,7 @@ pragma solidity ^0.4.18;
 import 'zeppelin-solidity/contracts/math/SafeMath.sol';
 import 'zeppelin-solidity/contracts/crowdsale/RefundVault.sol';
 import './FinalizableCrowdsale.sol';
+import './CappedCrowdsale.sol';
 
 
 /**
@@ -12,7 +13,7 @@ import './FinalizableCrowdsale.sol';
  * the possibility of users getting a refund if goal is not met.
  * Uses a RefundVault as the crowdsale's vault.
  */
-contract RefundableCrowdsale is FinalizableCrowdsale {
+contract RefundableCrowdsale is CappedCrowdsale, FinalizableCrowdsale {
   using SafeMath for uint256;
 
   // minimum amount of funds to be raised in weis
@@ -21,7 +22,7 @@ contract RefundableCrowdsale is FinalizableCrowdsale {
   // refund vault used to hold funds while crowdsale is running
   RefundVault public vault;
 
-  function RefundableCrowdsale(uint256 _goal) public {
+  function RefundableCrowdsale(uint256 _goal, uint256 _cap) CappedCrowdsale(_cap) public {
     require(_goal > 0);
     vault = new RefundVault(wallet);
     goal = _goal;

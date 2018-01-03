@@ -15,4 +15,9 @@ contract EndorToken is MintableToken {
     string public constant name = "EndorToken";
     string public constant symbol = "EDR";
     uint8 public constant decimals = 18;
+    uint256 public constant FINAL_SUPPLY = 150000000 * (10 ** uint256(decimals));
+
+    function getAvailableTokens() public view returns(uint256) {
+        return FINAL_SUPPLY - totalSupply;
+    }
 }

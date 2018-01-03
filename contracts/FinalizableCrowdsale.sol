@@ -35,6 +35,5 @@ contract FinalizableCrowdsale is Crowdsale, Ownable {
    * should call super.finalization() to ensure the chain of finalization is
    * executed entirely.
    */
-  function finalization() internal {
-  }
+  function finalization() internal {}
 }
